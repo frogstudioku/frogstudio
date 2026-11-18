@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Frogstudio – Toko Aplikasi</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:dark;--bg:#0d0f14;--panel:#151821;--panel2:#1c2029;--line:#262b37;--tx:#eef1f6;--mut:#8b93a5;--ac:#46d36b;--ac2:#2fa84f;--acfg:#06210f;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:"Poppins",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:14px;line-height:1.5}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
+:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+.shell{display:grid;grid-template-columns:220px 1fr;min-height:100vh}
+aside{background:var(--panel);border-right:1px solid var(--line);padding:20px 14px;position:sticky;top:env(safe-area-inset-top,0px);height:100vh;align-self:start;display:flex;flex-direction:column;gap:6px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:18px;padding:0 8px 18px}
+.logo i{width:34px;height:34px;border-radius:10px;background:var(--ac);color:var(--acfg);display:grid;place-items:center;font-style:normal;font-size:19px}
+.nav{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:10px;color:var(--mut);text-align:left;width:100%}
+.nav:hover{background:var(--panel2);color:var(--tx)}
+.nav.on{background:rgba(70,211,107,.12);color:var(--ac)}
+.nav svg{width:20px;height:20px;flex:none}
+main{padding:20px 28px 40px;min-width:0}
+.top{display:flex;gap:12px;align-items:center;margin-bottom:22px}
+.search{flex:1;display:flex;align-items:center;gap:10px;background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:0 16px}
+.search input{flex:1;background:none;border:0;color:var(--tx);font:inherit;padding:11px 0;min-width:0}
+.search input:focus{outline:none}.search:focus-within{border-color:var(--ac)}
+.search svg{width:18px;color:var(--mut)}
+.cart{position:relative;width:42px;height:42px;border-radius:50%;background:var(--panel);border:1px solid var(--line);display:grid;place-items:center}
+.hero{position:relative;border-radius:18px;overflow:hidden;min-height:300px;display:flex;align-items:center;padding:36px;border:1px solid var(--line)}
+.hero .art,.banner .art{position:absolute;inset:0}
+.hero .art::after,.banner .art::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(13,15,20,.92) 8%,rgba(13,15,20,.45) 60%,rgba(13,15,20,.1))}
+.hero .tx{position:relative;max-width:460px}
+.tag{color:var(--ac);font-size:13px;font-weight:500}
+h1,h2,h3{margin:0;line-height:1.2}
+.hero h1{font-size:clamp(26px,4vw,38px);margin:6px 0 10px}
+.hero p{color:#c3c9d6;margin:0 0 20px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--ac);color:var(--acfg);font-weight:600;padding:11px 22px;border-radius:999px}
+.btn:hover{background:#6ae88a}
+.btn.ghost{background:none;color:var(--tx);border:1px solid var(--line)}
+.btn.ghost:hover{border-color:var(--ac);color:var(--ac)}
+.sec{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:30px 0 14px;flex-wrap:wrap}
+.sec h2{font-size:20px}
+.chips{display:flex;gap:8px}
+.chip{padding:6px 14px;border-radius:999px;border:1px solid var(--line);color:var(--mut)}
+.chip.on{background:var(--ac);color:var(--acfg);border-color:var(--ac);font-weight:600}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;overflow:hidden;text-align:left;display:flex;flex-direction:column;transition:transform .15s,border-color .15s}
+.card:hover{transform:translateY(-3px);border-color:var(--ac)}
+.thumb{aspect-ratio:16/10;position:relative;display:grid;place-items:center;font-size:54px;overflow:hidden}
+.thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.badge{position:absolute;top:10px;left:10px;background:rgba(13,15,20,.75);padding:2px 10px;border-radius:6px;font-size:12px;color:var(--ac)}
+.info{display:flex;justify-content:space-between;gap:10px;padding:12px 14px 14px;align-items:flex-start}
+.compat{display:flex;flex-direction:column;gap:2px;color:var(--mut);font-size:11px}
+.compat svg{width:20px;height:20px;color:#5ab4ff}
+.meta{text-align:right;min-width:0}
+.meta b{display:block;font-weight:600;font-size:14px;overflow-wrap:anywhere}
+.price{color:var(--ac);font-weight:600;font-size:13px}
+.price.free{color:#ffd166}
+.empty{color:var(--mut);padding:30px 0}
+/* detail */
+.back{margin-bottom:14px;color:var(--mut);display:inline-flex;gap:6px}
+.back:hover{color:var(--ac)}
+.banner{position:relative;border-radius:18px;overflow:hidden;min-height:320px;display:flex;align-items:flex-end;padding:32px;border:1px solid var(--line)}
+.banner .art{display:grid;place-items:center;font-size:140px;opacity:.9}
+.banner .tx{position:relative}
+.banner h1{font-size:clamp(26px,4vw,40px)}
+.dgrid{display:grid;grid-template-columns:1fr 320px;gap:24px;margin-top:24px;align-items:start}
+.box{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px}
+.box h3{font-size:16px;margin-bottom:10px}
+.box p{color:#c3c9d6;margin:0 0 12px}
+.feat{margin:0;padding-left:18px;color:#c3c9d6}
+.feat li{margin:4px 0}
+.kv{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--line);color:var(--mut)}
+.kv span:last-child{color:var(--tx);text-align:right}
+.bigprice{font-size:30px;font-weight:700;color:var(--ac);margin:0 0 14px}
+.buy{position:sticky;top:20px}
+.buy .btn{width:100%;margin-top:14px}
+/* modal */
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.7);display:none;place-items:center;padding:16px;z-index:50;overflow:auto}
+.ov.show{display:grid}
+.modal{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:24px;width:100%;max-width:440px}
+.modal h3{font-size:20px;margin-bottom:4px}
+label{display:block;margin:14px 0 6px;color:var(--mut);font-size:13px}
+input.f,select.f{width:100%;background:var(--bg);border:1px solid var(--line);color:var(--tx);border-radius:10px;padding:10px 12px;font:inherit}
+.sum{display:flex;justify-content:space-between;margin:18px 0 4px;font-weight:600}
+.row{display:flex;gap:10px;margin-top:16px}.row .btn{flex:1}
+.ok{text-align:center;padding:10px 0}.ok div{font-size:46px}
+.bar{display:none}
+@media (max-width:980px){
+ .shell{grid-template-columns:72px 1fr}
+ aside{padding:16px 8px;align-items:center}
+ .nav{justify-content:center;padding:12px}.nav span,.logo span{display:none}.logo{padding:0 0 14px}
+ main{padding:18px}
+ .dgrid{grid-template-columns:1fr}.buy{position:static}
+}
+@media (max-width:640px){
+ .shell{display:block}
+ aside{display:none}
+ main{padding:14px 14px 84px}
+ .hero{padding:22px;min-height:260px}
+ .hero .art::after,.banner .art::after{background:linear-gradient(0deg,rgba(13,15,20,.95) 20%,rgba(13,15,20,.3))}
+ .hero{align-items:flex-end}
+ .grid{grid-template-columns:1fr 1fr;gap:10px}
+ .thumb{font-size:40px}.info{flex-direction:column;gap:8px}.meta{text-align:left}
+ .banner{min-height:240px;padding:20px}.banner .art{font-size:90px;align-items:start;padding-top:30px}
+ .bar{display:flex;position:fixed;left:0;right:0;bottom:0;background:var(--panel);border-top:1px solid var(--line);padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px));z-index:20}
+ .bar .nav{flex-direction:column;gap:2px;font-size:11px;padding:6px 4px;justify-content:center;align-items:center}
+ .bar .nav span{display:block}
+}
+@media (max-width:360px){.grid{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="shell">
+ <aside id="side"></aside>
+ <main>
+  <div class="top">
+   <label class="search" style="margin:0"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="q" type="search" placeholder="Cari aplikasi Frogstudio" aria-label="Cari aplikasi"></label>
+   <button class="cart" aria-label="Keranjang"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6h15l-2 9H8zM6 6 5 3H2M9 20h.01M18 20h.01"/></svg></button>
+  </div>
+  <div id="view"></div>
+ </main>
+</div>
+<nav class="bar" id="bar"></nav>
+<div class="ov" id="ov" role="dialog" aria-modal="true"><div class="modal" id="modal"></div></div>
+
+<script>
+/* ====== DATA APLIKASI ======
+   Ganti isi di bawah dengan aplikasi Anda.
+   img: isi dengan nama file gambar thumbnail (mis. "img/catatan.jpg"), kosongkan untuk memakai ikon+warna. */
+var APPS=[
+ {id:"frogcut",name:"FrogCut Video Editor",price:249000,emoji:"🎬",c:["#1f6f4a","#0f2b3d"],img:"",cat:"Kreatif",ver:"3.2.0",size:"182 MB",
+  short:"Edit video cepat dengan timeline sederhana.",desc:"FrogCut membantu Anda memotong, menggabungkan, dan mengekspor video tanpa kurva belajar yang panjang. Cocok untuk konten media sosial dan presentasi.",feat:["Timeline multi-track","Ekspor hingga 4K","Efek transisi dan teks","Bekerja offline"]},
+ {id:"frogpos",name:"FrogPOS Kasir",price:399000,emoji:"🧾",c:["#7a4a12","#2b1a0a"],img:"",cat:"Bisnis",ver:"2.8.1",size:"96 MB",
+  short:"Aplikasi kasir untuk toko dan kafe.",desc:"Kelola penjualan, stok barang, dan laporan harian dari satu aplikasi. Mendukung cetak struk dan banyak kasir.",feat:["Cetak struk thermal","Manajemen stok","Laporan harian dan bulanan","Multi pengguna"]},
+ {id:"frogtype",name:"FrogType Editor",price:0,emoji:"⌨️",c:["#2d3a8c","#111633"],img:"",cat:"Utilitas",ver:"1.5.4",size:"34 MB",
+  short:"Editor teks ringan, gratis selamanya.",desc:"Editor teks cepat dengan tab, pencarian, dan tema gelap. Dibuat untuk catatan dan kode ringan.",feat:["Buka banyak tab","Cari dan ganti","Tema gelap dan terang","Gratis tanpa iklan"]},
+ {id:"frogbackup",name:"FrogBackup Pro",price:179000,emoji:"🛡️",c:["#0f5f6b","#0a1f2b"],img:"",cat:"Utilitas",ver:"4.0.2",size:"58 MB",
+  short:"Cadangkan file penting otomatis.",desc:"Jadwalkan pencadangan folder ke hard disk eksternal atau jaringan. Pulihkan file hanya dengan beberapa klik.",feat:["Jadwal otomatis","Enkripsi file","Pencadangan bertahap","Pemulihan cepat"]},
+ {id:"frogcalc",name:"FrogCalc",price:0,emoji:"🧮",c:["#6b2d6b","#21102b"],img:"",cat:"Utilitas",ver:"1.2.0",size:"12 MB",
+  short:"Kalkulator ilmiah dengan riwayat.",desc:"Kalkulator ilmiah dan konversi satuan dengan riwayat perhitungan yang bisa disimpan.",feat:["Mode ilmiah","Konversi satuan","Riwayat perhitungan","Ukuran sangat kecil"]},
+ {id:"frogpdf",name:"FrogPDF Tools",price:129000,emoji:"📄",c:["#8c2d2d","#2b1010"],img:"",cat:"Dokumen",ver:"2.1.3",size:"74 MB",
+  short:"Gabung, pisah, dan tanda tangani PDF.",desc:"Semua alat PDF yang Anda butuhkan: gabung, pisah, kompres, dan beri tanda tangan digital.",feat:["Gabung dan pisah","Kompres ukuran","Tanda tangan digital","Proses massal"]},
+ {id:"frogclip",name:"FrogClip Manager",price:0,emoji:"📋",c:["#2d6b5a","#0f2b24"],img:"",cat:"Utilitas",ver:"1.0.8",size:"9 MB",
+  short:"Riwayat clipboard yang bisa dicari.",desc:"Simpan semua yang Anda salin dan tempel ulang kapan saja dengan satu pintasan keyboard.",feat:["Riwayat 500 item","Pencarian cepat","Pintasan keyboard","Sematkan item"]},
+ {id:"frogschool",name:"FrogSchool Absensi",price:299000,emoji:"🏫",c:["#a8741a","#2b1f0a"],img:"",cat:"Bisnis",ver:"3.0.0",size:"120 MB",
+  short:"Absensi dan nilai siswa dalam satu aplikasi.",desc:"Catat kehadiran, input nilai, dan cetak rapor dengan template yang dapat disesuaikan untuk sekolah Anda.",feat:["Absensi harian","Input nilai","Cetak rapor","Impor dari Excel"]}
+];
+var WIN='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 5.5 10.5 4.4v7H3zM11.5 4.3 21 3v8.4h-9.5zM3 12.6h7.5v7L3 18.5zM11.5 12.6H21V21l-9.5-1.3z"/></svg>';
+var ICON={home:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 11 9-8 9 8v10H3z"/></svg>',
+ all:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>',
+ free:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 12v9H4v-9M2 7h20v5H2zM12 21V7M12 7H8a2.5 2.5 0 1 1 0-5c2 0 4 5 4 5zm0 0h4a2.5 2.5 0 1 0 0-5c-2 0-4 5-4 5z"/></svg>',
+ help:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.4-1 1-1 1.7M12 17h.01"/></svg>'};
+var NAV=[["home","Beranda"],["all","Semua Aplikasi"],["free","Gratis"],["help","Bantuan"]];
+var st={filter:"all",q:"",tab:"home"};
+var $=function(s){return document.querySelector(s)};
+function rp(n){return n===0?"Gratis":"Rp "+n.toLocaleString("id-ID")}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function art(a){return a.img?'<img src="'+esc(a.img)+'" alt="">':a.emoji}
+function bg(a){return 'background:linear-gradient(135deg,'+a.c[0]+','+a.c[1]+')'}
+function nav(){
+ var h=NAV.map(function(n){return '<button class="nav'+(st.tab===n[0]?' on':'')+'" data-nav="'+n[0]+'" aria-label="'+n[1]+'">'+ICON[n[0]]+'<span>'+n[1]+'</span></button>'}).join("");
+ $("#side").innerHTML='<div class="logo"><i>🐸</i><span>Frogstudio</span></div>'+h;
+ $("#bar").innerHTML=h;
+}
+function card(a){
+ return '<button class="card" data-app="'+a.id+'"><div class="thumb" style="'+bg(a)+'">'+art(a)+'<span class="badge">'+esc(a.cat)+'</span></div>'+
+ '<div class="info"><div class="compat">'+WIN+'<span>Compatible for</span></div><div class="meta"><b>'+esc(a.name)+'</b><span class="price'+(a.price?'':' free')+'">'+rp(a.price)+'</span></div></div></button>'
+}
+function list(){
+ var q=st.q.toLowerCase();
+ return APPS.filter(function(a){
+  if(st.filter==="free"&&a.price>0)return false;
+  if(st.filter==="paid"&&a.price===0)return false;
+  return !q||(a.name+" "+a.cat+" "+a.short).toLowerCase().indexOf(q)>-1;
+ });
+}
+function home(){
+ var f=APPS[0],items=list();
+ var hero=(st.tab==="home"&&!st.q)?'<section class="hero"><div class="art" style="'+bg(f)+';display:grid;place-items:center;font-size:150px;justify-items:end;padding-right:8%">'+art(f)+'</div><div class="tx"><span class="tag">Aplikasi unggulan</span><h1>'+esc(f.name)+'</h1><p>'+esc(f.short)+'</p><button class="btn" data-app="'+f.id+'">Lihat detail</button></div></section>':'';
+ if(st.tab==="help")return '<div class="box"><h3>Bantuan</h3><p>Pertanyaan soal pembelian atau lisensi? Hubungi kami di support@frogstudio.id (ganti dengan email Anda).</p></div>';
+ var title=st.tab==="home"?"Semua aplikasi":st.tab==="free"?"Aplikasi gratis":"Semua aplikasi";
+ var chips=[["all","Semua"],["free","Gratis"],["paid","Berbayar"]].map(function(c){return '<button class="chip'+(st.filter===c[0]?' on':'')+'" data-f="'+c[0]+'">'+c[1]+'</button>'}).join("");
+ return hero+'<div class="sec"><h2>'+title+'</h2><div class="chips">'+chips+'</div></div>'+
+  (items.length?'<div class="grid">'+items.map(card).join("")+'</div>':'<p class="empty">Tidak ada aplikasi yang cocok dengan pencarian Anda.</p>');
+}
+function detail(a){
+ return '<button class="back" data-back>← Kembali</button>'+
+ '<section class="banner"><div class="art" style="'+bg(a)+'">'+art(a)+'</div><div class="tx"><span class="tag">'+esc(a.cat)+'</span><h1>'+esc(a.name)+'</h1><div class="compat" style="flex-direction:row;align-items:center;gap:8px;margin-top:8px;font-size:13px">'+WIN+'<span>Compatible for Windows</span></div></div></section>'+
+ '<div class="dgrid"><div><div class="box"><h3>Deskripsi</h3><p>'+esc(a.desc)+'</p><h3 style="margin-top:16px">Fitur utama</h3><ul class="feat">'+a.feat.map(function(x){return '<li>'+esc(x)+'</li>'}).join("")+'</ul></div></div>'+
+ '<aside class="box buy" style="position:sticky;height:auto;display:block;border-right:1px solid var(--line)"><p class="bigprice">'+rp(a.price)+'</p>'+
+ '<div class="kv"><span>Versi</span><span>'+a.ver+'</span></div><div class="kv"><span>Ukuran</span><span>'+a.size+'</span></div><div class="kv"><span>Platform</span><span>Windows 10/11</span></div>'+
+ '<button class="btn" data-buy="'+a.id+'">'+(a.price?'Beli sekarang':'Unduh gratis')+'</button></aside></div>';
+}
+function route(){
+ var id=location.hash.slice(1),a=APPS.filter(function(x){return x.id===id})[0];
+ $("#view").innerHTML=a?detail(a):home();
+ window.scrollTo(0,0);
+}
+function modal(a){
+ var m=$("#modal");
+ if(!a.price){
+  m.innerHTML='<div class="ok"><div>⬇️</div><h3>Unduhan dimulai</h3><p style="color:var(--mut)">'+esc(a.name)+' gratis. Ganti tombol ini dengan tautan unduhan file Anda.</p></div><div class="row"><button class="btn" data-close>Tutup</button></div>';
+ }else{
+  m.innerHTML='<h3>Checkout</h3><p style="color:var(--mut);margin:0">'+esc(a.name)+'</p>'+
+  '<label for="em">Email (untuk kunci lisensi)</label><input class="f" id="em" type="email" placeholder="nama@email.com">'+
+  '<label for="pm">Metode pembayaran</label><select class="f" id="pm"><option>Transfer bank</option><option>QRIS</option><option>E-wallet</option><option>Kartu kredit</option></select>'+
+  '<div class="sum"><span>Total</span><span class="price">'+rp(a.price)+'</span></div>'+
+  '<div class="row"><button class="btn ghost" data-close>Batal</button><button class="btn" data-pay="'+a.id+'">Bayar</button></div>';
+ }
+ $("#ov").classList.add("show");
+}
+document.addEventListener("click",function(e){
+ var t=e.target.closest("[data-app],[data-nav],[data-f],[data-back],[data-buy],[data-close],[data-pay]");
+ if(!t){if(e.target.id==="ov")$("#ov").classList.remove("show");return}
+ var d=t.dataset;
+ if(d.app){location.hash=d.app}
+ else if(d.back){location.hash="";route()}
+ else if(d.nav){st.tab=d.nav;st.filter=d.nav==="free"?"free":"all";nav();if(location.hash){location.hash=""}else route()}
+ else if(d.f){st.filter=d.f;route()}
+ else if(d.buy){modal(APPS.filter(function(x){return x.id===d.buy})[0])}
+ else if(d.close){$("#ov").classList.remove("show")}
+ else if(d.pay){
+  var em=$("#em");
+  if(!em.value||em.value.indexOf("@")<1){em.style.borderColor="#ff6b6b";em.focus();return}
+  $("#modal").innerHTML='<div class="ok"><div>✅</div><h3>Pembayaran berhasil</h3><p style="color:var(--mut)">Kunci lisensi dikirim ke '+esc(em.value)+'. (Contoh tampilan: hubungkan ke payment gateway Anda.)</p></div><div class="row"><button class="btn" data-close>Selesai</button></div>';
+ }
+});
+$("#q").addEventListener("input",function(e){st.q=e.target.value;if(location.hash){location.hash=""}else route()});
+document.addEventListener("keydown",function(e){if(e.key==="Escape")$("#ov").classList.remove("show")});
+window.addEventListener("hashchange",route);
+nav();route();
+</script>
+</body>
+</html>
